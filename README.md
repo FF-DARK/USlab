@@ -1,5 +1,5 @@
-# 🏝️ 國立成功大學生物醫學工程學系：醫用超音波與聲學生醫實驗室 (范景翔副教授)
-**Therapeutic Ultrasound & Acoustic Bioengineering Lab (Prof. Ching-Hsiang Fan, NCKU BME)**
+# 🏝️ 國立成功大學生物醫學工程學系：超音波與藥物控制釋放實驗室 (范景翔副教授)
+**Ultrasound and Drug Controlled Release Laboratory (Prof. Ching-Hsiang Fan, NCKU BME)**
 
 本專案為實驗室官方互動式網站——**「聲波生醫島 (Acoustic Bio-Island)」**，以 2.5D 等距視角互動島嶼呈現六大醫用治療超音波研究領域、即時聲場物理模擬、97 篇完整學術文獻圖書館與團隊介紹。
 
@@ -17,4 +17,4 @@
 - `simulations.js`：六大超音波研究主題之 HTML5 Canvas 即時物理與生醫模擬引擎
 - `app.js`：互動島嶼地圖控制器與內建視覺化編輯器
 - `styles.css`：全站樣式表
-- `assets/`：島嶼底圖 (`island-map.jpg`) 與實驗室主持人照片 (`pi-fan.jpg`)
+- `assets/`：島嶼底圖 (`island-map.jpg`)、實驗室主持人照片 (`pi-fan.jpg`) 與實驗室活動照片 (`photos/`)
