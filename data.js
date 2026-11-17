@@ -2036,7 +2036,7 @@ window.LAB_DATA = {
   ],
   "team": {
     "pi": {
-      "photo": "assets/pi-fan.jpg",
+      "photo": "pi-fan.jpg",
       "email": "10908013@gs.ncku.edu.tw",
       "office": "國立成功大學 生物醫學工程學系 (NCKU Dept. of Biomedical Engineering)",
       "scholarUrl": "https://scholar.google.com/citations?hl=zh-TW&user=",
@@ -2180,7 +2180,7 @@ window.LAB_DATA = {
       "titleEn": "TSBME 2025 & NSTC BME Annual Symposium — Invited Talk by Prof. Fan (I)",
       "descZh": "范景翔老師於 2025 生物醫學工程科技研討會發表聚焦超音波於不同生醫應用與波形參數調控之研究成果。",
       "descEn": "Prof. Fan presenting our lab's focused ultrasound breakthroughs at the TSBME 2025 Annual Symposium.",
-      "image": "assets/photos/tsbme-2025-1.jpg"
+      "image": "tsbme-2025-1.jpg"
     },
     {
       "id": "photo-1",
@@ -2192,7 +2192,7 @@ window.LAB_DATA = {
       "titleEn": "IEEE UFFC-JS 2024 Taipei — Prof. Fan & Lab Presentation Team",
       "descZh": "范景翔老師率領實驗室研究生團隊參加於台北南港展覽館舉辦之 2024 IEEE UFFC-JS 國際超音波頂尖年會並發表多篇論文。",
       "descEn": "Prof.  Fan and lab researchers at the 2024 IEEE Ultrasonics, Ferroelectrics, and Frequency Control Joint Symposium.",
-      "image": "assets/photos/IMG_7536.jpg"
+      "image": "IMG_7536.jpg"
     },
     {
       "id": "photo-2",
@@ -2204,7 +2204,7 @@ window.LAB_DATA = {
       "titleEn": "Congrats! Lab Students Won 1st Place, 2nd Place & Merit Award in NCKU BME Competition",
       "descZh": "實驗室同學展現紮實研究實力，於國立成功大學生物醫學工程學系專題研究競賽囊括第一名、第二名與優勝佳績！",
       "descEn": "Our students proudly holding their 1st Place, 2nd Place, and Merit Award certificates at NCKU BME!",
-      "image": "assets/photos/student-awards-1.jpg"
+      "image": "student-awards-1.jpg"
     },
     {
       "id": "photo-3",
@@ -2216,7 +2216,7 @@ window.LAB_DATA = {
       "titleEn": "NCKU BME Graduation Ceremony — Lab Celebration (I)",
       "descZh": "恭喜實驗室碩博士畢業生順利完成學業、邁向人生新階段！",
       "descEn": "Congratulations to our graduates!",
-      "image": "assets/photos/grad-ceremony-1.jpg"
+      "image": "grad-ceremony-1.jpg"
     },
     {
       "id": "photo-4",
@@ -2228,7 +2228,7 @@ window.LAB_DATA = {
       "titleEn": "NCKU BME Graduation Ceremony — Prof. Fan & Graduate",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/grad-ceremony-3.jpg"
+      "image": "grad-ceremony-3.jpg"
     },
     {
       "id": "photo-5",
@@ -2240,7 +2240,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Birthday Celebration",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_0697.jpg"
+      "image": "IMG_0697.jpg"
     },
     {
       "id": "photo-6",
@@ -2252,7 +2252,7 @@ window.LAB_DATA = {
       "titleEn": "Daily Lab Life — Prof. Fan & Students in the Office",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_0066.jpg"
+      "image": "IMG_0066.jpg"
     },
     {
       "id": "photo-7",
@@ -2264,7 +2264,7 @@ window.LAB_DATA = {
       "titleEn": "Therapeutic Ultrasound Lab — New Year Team Gathering",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/lab-gathering-1.jpg"
+      "image": "lab-gathering-1.jpg"
     },
     {
       "id": "photo-8",
@@ -2276,7 +2276,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Team Dinner — Group Photo",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_6837.jpg"
+      "image": "IMG_6837.jpg"
     },
     {
       "id": "photo-9",
@@ -2288,7 +2288,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Night Out & Team Dinner",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_7758.jpg"
+      "image": "IMG_7758.jpg"
     },
     {
       "id": "photo-10",
@@ -2300,7 +2300,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Hotpot Dinner & Team Bonding (I)",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/lab-gathering-2.jpg"
+      "image": "lab-gathering-2.jpg"
     },
     {
       "id": "photo-11",
@@ -2312,7 +2312,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Hotpot Dinner & Team Bonding (II)",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_4101.jpg"
+      "image": "IMG_4101.jpg"
     },
     {
       "id": "photo-12",
@@ -2324,7 +2324,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Hotpot Dinner & Team Bonding (III)",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_4096.jpg"
+      "image": "IMG_4096.jpg"
     },
     {
       "id": "photo-13",
@@ -2336,7 +2336,7 @@ window.LAB_DATA = {
       "titleEn": "Lab Hotpot Dinner & Team Bonding (IV)",
       "descZh": "",
       "descEn": "",
-      "image": "assets/photos/IMG_4099.jpg"
+      "image": "IMG_4099.jpg"
     }
   ],
   "news": [

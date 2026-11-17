@@ -3,7 +3,7 @@
 // ============================================================================
 
 (function () {
-  const STORAGE_KEY = "TU_LAB_CUSTOM_DATA_FINAL_V1";
+  const STORAGE_KEY = "TU_LAB_CUSTOM_DATA_FINAL_V2";
   const DEFAULT_DATA = JSON.parse(JSON.stringify(window.LAB_DATA));
 
   // 優先載入使用者在瀏覽器視覺化編輯器儲存的資料
