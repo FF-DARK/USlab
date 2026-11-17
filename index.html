@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>醫用超音波與聲學生醫實驗室 | 聲波生醫島 (Acoustic Bio-Island)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 背景海洋聲波與微氣泡特效畫布 -->
+  <canvas id="ocean-canvas"></canvas>
+
+  <!-- 頂部懸浮導覽列 (Glassmorphism HUD) -->
+  <header class="top-hud">
+    <div id="brand-home" class="brand-block" title="點擊重置島嶼視角">
+      <div class="brand-icon">〰️</div>
+      <div class="brand-text">
+        <h1 id="lab-title">醫用超音波與聲學生醫實驗室</h1>
+        <p id="lab-subtitle">拖曳地圖或點擊島嶼地標，探索超音波如何無創操控流場、細胞與神經屏障</p>
+      </div>
+    </div>
+
+    <!-- 快速跳轉地標膠囊列 -->
+    <nav id="quick-nav" class="quick-nav" aria-label="島嶼研究園區導覽"></nav>
+
+    <!-- 右側模式與雙語切換 -->
+    <div class="hud-actions">
+      <button id="btn-open-editor" class="hud-btn editor-trigger-btn" type="button">✏️ 編輯資料</button>
+      <button id="btn-acoustic-mode" class="hud-btn" type="button">〰️ 聲場透視模式</button>
+      <button id="btn-reset-view" class="hud-btn" type="button">🧭 重置視角</button>
+      <button id="btn-lang" class="hud-btn" type="button">🌐 EN / 繁中</button>
+    </div>
+  </header>
+
+  <!-- 2.5D 等距視角互動島嶼地圖舞台 (支援滑鼠拖曳平移與滾輪縮放) -->
+  <main id="viewport">
+    <div id="island-stage">
+      <!-- AI 生成之 2.5D 等距聲波生醫島底圖 -->
+      <img
+        class="island-artwork"
+        src="assets/island-map.jpg"
+        alt="Therapeutic Ultrasound Bio-Island Map"
+        draggable="false"
+      />
+
+      <!-- 動態聲波能量傳輸線與換能器核心漣漪 SVG 疊加層 -->
+      <svg id="island-svg-overlay" class="island-svg-overlay" viewBox="0 0 1360 765" preserveAspectRatio="none"></svg>
+
+      <!-- 10 個互動地標熱點標記層 -->
+      <div id="hotspots-layer"></div>
+    </div>
+  </main>
+
+  <!-- 左側常駐「實驗室核心簡介 & 最新消息捷報看板」 (Left Welcome & Live News HUD) -->
+  <aside id="left-board" class="left-board" aria-label="實驗室核心內容與最新消息">
+    <div class="left-board-header">
+      <div class="left-board-title-wrap">
+        <span class="pulse-dot"></span>
+        <span id="lb-header-tag" class="lb-header-tag">LAB CORE &amp; LATEST NEWS</span>
+      </div>
+      <button id="left-board-collapse-btn" class="lb-collapse-btn" type="button" title="收合左側看板以全螢幕探索島嶼">
+        ◀ 收合
+      </button>
+    </div>
+
+    <div class="left-board-body">
+      <!-- 區塊 1：實驗室核心使命與六大技術標籤 -->
+      <section class="lb-core-box">
+        <h2 id="lb-core-headline" class="lb-core-headline">以超音波物理力學，開創無創精準醫療</h2>
+        <p id="lb-core-mission" class="lb-core-mission"></p>
+        <div id="lb-pillars" class="lb-pillars"></div>
+      </section>
+
+      <!-- 區塊 1.5：實驗室主持人 (PI) 快速名片卡 -->
+      <section id="lb-pi-card" class="lb-pi-card" title="點擊查看指導教授完整學經歷與榮譽">
+        <img id="lb-pi-avatar" class="lb-pi-avatar" src="" alt="PI Portrait" />
+        <div class="lb-pi-info">
+          <span id="lb-pi-tag" class="lb-pi-tag">👨‍🔬 實驗室主持人 (PI)</span>
+          <h3 id="lb-pi-name" class="lb-pi-name">實驗室主持人</h3>
+          <p id="lb-pi-title" class="lb-pi-title">特聘教授 · 生物醫學工程學系</p>
+        </div>
+        <span class="lb-pi-arrow">›</span>
+      </section>
+
+      <!-- 區塊 1.8：實驗室研究介紹與專訪影片 (Featured YouTube Videos) -->
+      <section class="lb-videos-section">
+        <h3 id="lb-videos-heading" class="section-heading" style="margin-bottom:6px">🎬 實驗室研究介紹與專訪影片</h3>
+        <div id="lb-videos-list" class="lb-videos-list"></div>
+      </section>
+
+      <!-- 區塊 2：最新消息與榮譽榜 (得獎、演講、新論文、新人加入) -->
+      <section class="lb-news-section">
+        <div class="lb-news-header-row">
+          <h3 id="lb-news-heading" class="section-heading" style="margin-bottom:0">🔥 最新消息與榮譽捷報</h3>
+          <button id="btn-jump-news-editor" class="lb-edit-news-btn" type="button">＋ 發布消息</button>
+        </div>
+        <div id="lb-news-filters" class="lb-news-filters"></div>
+        <div id="lb-news-list" class="lb-news-list"></div>
+      </section>
+    </div>
+  </aside>
+
+  <!-- 當左側看板收合時顯示的展開按鈕 -->
+  <button id="left-board-reopen" class="left-board-reopen" type="button">
+    <span class="pulse-dot"></span>
+    <span id="lb-reopen-text">📣 展開核心簡介 &amp; 最新捷報</span>
+  </button>
+
+  <!-- 底部操作提示與縮放按鈕 -->
+  <div class="bottom-hud">
+    <div id="hud-hint" class="hud-hint-box">
+      💡 滾輪縮放 · 按住拖曳地圖 · 點擊地標開啟互動原理模擬
+    </div>
+    <div class="zoom-controls">
+      <button id="zoom-out-btn" class="zoom-btn" type="button" title="縮小地圖">−</button>
+      <button id="zoom-in-btn" class="zoom-btn" type="button" title="放大地圖">+</button>
+    </div>
+  </div>
+
+  <!-- 右側滑出式研究詳情與即時超音波物理模擬抽屜 -->
+  <aside id="detail-drawer" class="detail-drawer" aria-live="polite">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-badge-row">
+          <span id="drawer-code" class="drawer-code-pill">ZONE 01</span>
+        </div>
+        <h2 id="drawer-title" class="drawer-title">研究主題名稱</h2>
+        <p id="drawer-tagline" class="drawer-tagline">研究副標題說明</p>
+      </div>
+      <button id="drawer-close-btn" class="drawer-close" type="button" title="關閉面板">✕</button>
+    </div>
+    <div id="drawer-content" class="drawer-body"></div>
+  </aside>
+
+  <!-- 視覺化資料編輯器彈窗 (Visual Editor Modal) -->
+  <div id="editor-modal" class="editor-modal" aria-hidden="true">
+    <div class="editor-dialog">
+      <div class="editor-header">
+        <div>
+          <h2 class="editor-title">✏️ 實驗室網頁資料視覺化編輯器</h2>
+          <p class="editor-subtitle">直接在此打字修改，點擊「儲存並立即套用」即可在瀏覽器即時生效；也可匯出存回 data.js 檔案。</p>
+        </div>
+        <button id="editor-close-btn" class="drawer-close" type="button" title="關閉編輯器">✕</button>
+      </div>
+
+      <!-- 編輯器分頁籤 -->
+      <div class="editor-tabs">
+        <button class="editor-tab active" data-tab="meta" type="button">🏷️ 基本資訊 & 聯絡</button>
+        <button class="editor-tab" data-tab="news" type="button">📣 最新消息管理</button>
+        <button class="editor-tab" data-tab="zones" type="button">🏝️ 六大研究主題</button>
+        <button class="editor-tab" data-tab="team" type="button">👨‍🔬 指導教授 & 成員</button>
+        <button class="editor-tab" data-tab="pubs" type="button">📚 發表論文管理</button>
+        <button class="editor-tab" data-tab="facilities" type="button">🛠️ 核心設備管理</button>
+        <button class="editor-tab" data-tab="gallery" type="button">📸 日常相簿管理</button>
+      </div>
+
+      <!-- 編輯器表單內容區 -->
+      <div id="editor-body" class="editor-body"></div>
+
+      <!-- 底部儲存與匯出工具列 -->
+      <div class="editor-footer">
+        <div class="editor-footer-left">
+          <button id="editor-reset-btn" class="hud-btn danger-btn" type="button">🔄 還原預設範本</button>
+          <span id="editor-status-msg" class="editor-status-msg"></span>
+        </div>
+        <div class="editor-footer-right">
+          <button id="editor-export-btn" class="hud-btn" type="button" title="將修改後的資料存成 data.js 永久保存">💾 另存/覆蓋 data.js 檔案</button>
+          <button id="editor-save-btn" class="hud-btn primary-save-btn" type="button">✅ 儲存並立即套用</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 照片放大檢視燈箱 (Photo Lightbox Modal) -->
+  <div id="photo-lightbox" class="photo-lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button id="lightbox-close-btn" class="drawer-close lightbox-close" type="button" title="關閉照片">✕</button>
+      <div class="lightbox-img-wrap">
+        <button id="lightbox-prev-btn" class="lightbox-nav-btn" type="button" title="上一張">‹</button>
+        <img id="lightbox-img" src="" alt="實驗室活動照片" />
+        <button id="lightbox-next-btn" class="lightbox-nav-btn" type="button" title="下一張">›</button>
+      </div>
+      <div class="lightbox-caption">
+        <div class="lightbox-meta">
+          <span id="lightbox-tag" class="drawer-code-pill">活動分類</span>
+          <span id="lightbox-date" class="lightbox-date">2026-09</span>
+        </div>
+        <h3 id="lightbox-title">活動標題</h3>
+        <p id="lightbox-desc">活動照片說明文字</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 實驗室研究影片播放彈窗 (Video Player Modal) -->
+  <div id="video-modal" class="photo-lightbox" aria-hidden="true">
+    <div class="lightbox-content" style="max-width:880px">
+      <button id="video-modal-close" class="drawer-close lightbox-close" type="button" title="關閉影片">✕</button>
+      <div class="video-player-wrap">
+        <iframe
+          id="video-modal-iframe"
+          src=""
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="lightbox-caption">
+        <div class="lightbox-meta" style="justify-content:space-between;flex-wrap:wrap">
+          <span id="video-modal-tag" class="drawer-code-pill">🎬 研究專訪影片</span>
+          <a id="video-modal-ext-link" class="yt-external-btn" href="https://www.youtube.com" target="_blank" rel="noopener">
+            ▶️ 在 YouTube 新分頁開啟觀看 (若無法直接播放請點此) ↗
+          </a>
+        </div>
+        <h3 id="video-modal-title">影片標題</h3>
+        <p id="video-modal-desc">影片介紹說明</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 載入實驗室資料、即時物理模擬引擎與主控制器 -->
+  <script src="data.js"></script>
+  <script src="simulations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
