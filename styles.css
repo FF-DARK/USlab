@@ -171,6 +171,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: none;
 }
 
 #viewport.dragging {
@@ -180,7 +181,10 @@ html, body {
 #island-stage {
   position: relative;
   width: 1360px;
-  height: 765px; /* 16:9 比例 */
+  height: 765px; /* 16:9 比例，禁止 Flexbox 在手機小螢幕壓縮變形 */
+  min-width: 1360px;
+  min-height: 765px;
+  flex-shrink: 0;
   transform-origin: center center;
   transition: transform 0.08s linear;
   will-change: transform;
@@ -2080,4 +2084,203 @@ body.admin-unlocked .admin-only-ui {
 
 body.admin-unlocked button.admin-only-ui.add-item-btn {
   display: block !important;
+}
+
+
+/* ==========================================================================
+   手機與平板響應式最佳化 (Mobile & Tablet Responsive Layout)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .top-hud {
+    top: 8px;
+    left: 10px;
+    right: 10px;
+    padding: 9px 12px;
+    border-radius: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .brand-block {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 9px;
+  }
+
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    min-width: 0;
+  }
+
+  .brand-text h1 {
+    font-size: 0.92rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-text p {
+    display: none;
+  }
+
+  .hud-actions {
+    gap: 5px;
+  }
+
+  .hud-btn {
+    padding: 6px 9px;
+    font-size: 0.72rem;
+    border-radius: 9px;
+  }
+
+  /* 手機版頂部快速導覽列：改為可橫向滑動膠囊列 */
+  .quick-nav {
+    display: flex !important;
+    order: 3;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    gap: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .quick-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-pill {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 0.74rem;
+  }
+
+  /* 手機版左側迎賓看板：改為底部半高卡片，不遮擋上半部島嶼地圖 */
+  .left-board {
+    top: auto;
+    left: 10px;
+    right: 10px;
+    bottom: 58px;
+    width: auto;
+    max-height: 44vh;
+    border-radius: 18px;
+  }
+
+  .left-board.collapsed {
+    transform: translateY(120%);
+  }
+
+  .left-board-body {
+    padding: 12px 14px 16px;
+    gap: 12px;
+  }
+
+  .lb-core-headline {
+    font-size: 0.92rem;
+  }
+
+  .lb-core-mission {
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .left-board-reopen {
+    top: auto;
+    bottom: 62px;
+    left: 12px;
+    padding: 8px 14px;
+    font-size: 0.76rem;
+    transform: translateY(20px);
+  }
+
+  .left-board-reopen.visible {
+    transform: translateY(0);
+  }
+
+  /* 手機版底部控制列 */
+  .bottom-hud {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .hud-hint-box {
+    font-size: 0.7rem;
+    padding: 7px 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100vw - 110px);
+  }
+
+  /* 手機版右側詳情與文獻圖書館抽屜：統一為底部上滑全寬面板 */
+  .detail-drawer,
+  .detail-drawer.wide-drawer {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto !important;
+    height: 78vh;
+    border-radius: 20px;
+    transform: translateY(110%);
+  }
+
+  .detail-drawer.open,
+  .detail-drawer.wide-drawer.open {
+    transform: translateY(0);
+  }
+
+  .drawer-header {
+    padding: 14px 16px 12px;
+  }
+
+  .drawer-title {
+    font-size: 1.08rem;
+  }
+
+  .drawer-body {
+    padding: 14px 16px 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  #btn-reset-view {
+    display: none;
+  }
+
+  .pi-hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pi-portrait-lg {
+    width: 78px;
+    height: 78px;
+  }
+
+  .pub-stats-banner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .param-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-controls {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 }

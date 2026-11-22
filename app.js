@@ -94,6 +94,17 @@
     const vh = window.innerHeight;
     const baseW = 1360;
     const baseH = 765;
+
+    if (vw <= 900) {
+      // 手機與直立平板：保持 16:9 完美比例，並將島嶼置於上半部可視空間（避開底部迎賓看板）
+      const mobileScale = Math.max(0.36, Math.min(0.66, (vw * 1.15) / baseW));
+      state.scale = mobileScale;
+      state.panX = 0;
+      state.panY = !leftBoardCollapsed ? -Math.round(vh * 0.16) : -12;
+      applyTransform(true);
+      return;
+    }
+
     const scaleX = (vw * 0.92) / baseW;
     const scaleY = (vh * 0.84) / baseH;
     state.scale = Math.max(0.55, Math.min(1.12, Math.min(scaleX, scaleY)));
@@ -391,15 +402,17 @@
 
     const stageW = 1360;
     const stageH = 765;
-    const targetScale = Math.max(state.scale, 1.02);
+    const isMobile = window.innerWidth <= 900;
+    const targetScale = isMobile ? Math.max(state.scale, 0.62) : Math.max(state.scale, 1.02);
     const offsetX = (50 - lm.x) * (stageW / 100) * targetScale;
     const offsetY = (50 - lm.y) * (stageH / 100) * targetScale;
     const leftShift = !leftBoardCollapsed && window.innerWidth >= 1320 ? 150 : 0;
-    const drawerShift = window.innerWidth > 900 ? -190 + leftShift : 0;
+    const drawerShift = !isMobile ? -190 + leftShift : 0;
+    const mobileYShift = isMobile ? -Math.round(window.innerHeight * 0.25) : 15;
 
     state.scale = targetScale;
     state.panX = offsetX + drawerShift;
-    state.panY = offsetY + 15;
+    state.panY = offsetY + mobileYShift;
     applyTransform(true);
 
     openDetailDrawer(lm);
@@ -2528,11 +2541,48 @@
       (e) => {
         e.preventDefault();
         const zoomFactor = e.deltaY < 0 ? 1.09 : 0.92;
-        state.scale = Math.max(0.5, Math.min(1.85, state.scale * zoomFactor));
+        state.scale = Math.max(0.32, Math.min(1.85, state.scale * zoomFactor));
         applyTransform(false);
       },
       { passive: false }
     );
+
+    // 手機雙指縮放 (Pinch-to-Zoom) 支援
+    let initialPinchDist = null;
+    let initialPinchScale = 1;
+    viewport.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length === 2) {
+          state.isDragging = false;
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          initialPinchDist = Math.hypot(dx, dy);
+          initialPinchScale = state.scale;
+        }
+      },
+      { passive: true }
+    );
+
+    viewport.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches.length === 2 && initialPinchDist) {
+          e.preventDefault();
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          const dist = Math.hypot(dx, dy);
+          const ratio = dist / initialPinchDist;
+          state.scale = Math.max(0.32, Math.min(1.85, initialPinchScale * ratio));
+          applyTransform(false);
+        }
+      },
+      { passive: false }
+    );
+
+    viewport.addEventListener("touchend", () => {
+      initialPinchDist = null;
+    });
 
     document.getElementById("drawer-close-btn").addEventListener("click", closeDetailDrawer);
     document.getElementById("brand-home").addEventListener("click", closeDetailDrawer);
@@ -2543,7 +2593,7 @@
       applyTransform(true);
     });
     document.getElementById("zoom-out-btn").addEventListener("click", () => {
-      state.scale = Math.max(0.5, state.scale * 0.86);
+      state.scale = Math.max(0.32, state.scale * 0.86);
       applyTransform(true);
     });
 
