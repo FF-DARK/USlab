@@ -922,7 +922,7 @@
         </div>
       </div>
 
-      <button id="btn-jump-pi-editor" class="add-item-btn" style="width:100%;text-align:center" type="button">
+      <button id="btn-jump-pi-editor" class="add-item-btn admin-only-ui" style="width:100%;text-align:center" type="button">
         ${labels.editBtn}
       </button>
 
@@ -1087,7 +1087,7 @@
             .join("")}
         </div>
 
-        <button id="btn-jump-gallery-editor" class="add-item-btn" style="width:100%;margin-bottom:14px;text-align:center">
+        <button id="btn-jump-gallery-editor" class="add-item-btn admin-only-ui" style="width:100%;margin-bottom:14px;text-align:center">
           ${manageBtnLabel}
         </button>
 
@@ -1276,11 +1276,31 @@
   }
 
   // ==========================================================================
-  // 網頁內建視覺化編輯器 (In-Page Visual Editor)
+  // 網頁內建視覺化編輯器與管理員專屬解鎖機制 (In-Page Visual Editor & Admin Lock)
   // ==========================================================================
+  const ADMIN_PASS = "ncku2026";
+  let isAdminUnlocked = false;
+
+  function promptAdminUnlock() {
+    if (isAdminUnlocked) {
+      document.getElementById("btn-open-editor").click();
+      return;
+    }
+    const input = prompt("🔒 管理員專屬功能：請輸入管理密碼以開啟「編輯資料」模式：");
+    if (input === null) return;
+    if (input.trim() === ADMIN_PASS) {
+      isAdminUnlocked = true;
+      document.body.classList.add("admin-unlocked");
+      document.getElementById("btn-open-editor").click();
+    } else {
+      alert("❌ 密碼錯誤，僅限實驗室主持人管理使用。");
+    }
+  }
+
   function initVisualEditor() {
     const modal = document.getElementById("editor-modal");
     const openBtn = document.getElementById("btn-open-editor");
+    const lockBtn = document.getElementById("btn-lock-admin");
     const closeBtn = document.getElementById("editor-close-btn");
     const saveBtn = document.getElementById("editor-save-btn");
     const exportBtn = document.getElementById("editor-export-btn");
@@ -1288,7 +1308,53 @@
     const statusMsg = document.getElementById("editor-status-msg");
     const tabs = document.querySelectorAll(".editor-tab");
 
+    // 1. 鍵盤隱藏快捷鍵：Ctrl + Shift + E 解鎖管理員模式
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === "E" || e.key === "e")) {
+        e.preventDefault();
+        promptAdminUnlock();
+      }
+    });
+
+    // 2. 連點左上角「〰️」圖示 5 下解鎖管理員模式 (方便筆電/平板操作)
+    const brandIcon = document.querySelector(".brand-icon");
+    let iconClicks = 0;
+    let iconTimer = null;
+    if (brandIcon) {
+      brandIcon.addEventListener("click", (e) => {
+        iconClicks++;
+        clearTimeout(iconTimer);
+        if (iconClicks >= 5) {
+          e.stopPropagation();
+          iconClicks = 0;
+          promptAdminUnlock();
+        } else {
+          iconTimer = setTimeout(() => {
+            iconClicks = 0;
+          }, 1600);
+        }
+      });
+    }
+
+    // 3. 網址帶有 ?admin 時自動跳出密碼驗證
+    if (window.location.search.includes("admin")) {
+      setTimeout(promptAdminUnlock, 400);
+    }
+
+    // 退出管理模式按鈕 (切換回一般訪客視角)
+    if (lockBtn) {
+      lockBtn.addEventListener("click", () => {
+        isAdminUnlocked = false;
+        document.body.classList.remove("admin-unlocked");
+        modal.classList.remove("open");
+      });
+    }
+
     openBtn.addEventListener("click", () => {
+      if (!isAdminUnlocked) {
+        promptAdminUnlock();
+        return;
+      }
       statusMsg.textContent = "";
       renderEditorTabContent();
       modal.classList.add("open");

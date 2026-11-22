@@ -2065,3 +2065,19 @@ body.acoustic-field-mode .acoustic-link-line,
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+
+/* ==========================================================================
+   管理員專屬編輯權限控制 (預設對所有一般訪客完全隱藏編輯按鈕)
+   ========================================================================== */
+.admin-only-ui {
+  display: none !important;
+}
+
+body.admin-unlocked .admin-only-ui {
+  display: inline-flex !important;
+}
+
+body.admin-unlocked button.admin-only-ui.add-item-btn {
+  display: block !important;
+}
