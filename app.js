@@ -201,7 +201,6 @@
     document.getElementById("hud-hint").textContent = meta.hudHint;
     document.getElementById("btn-open-editor").textContent =
       currentLang === "zh" ? "✏️ 編輯資料" : "✏️ Edit Data";
-    document.getElementById("btn-acoustic-mode").textContent = `〰️ ${meta.acousticModeLabel}`;
     document.getElementById("btn-reset-view").textContent = `🧭 ${meta.resetViewLabel}`;
     document.getElementById("btn-lang").textContent = currentLang === "zh" ? "🌐 EN / 繁中" : "🌐 繁中 / EN";
 
@@ -2595,13 +2594,6 @@
     document.getElementById("zoom-out-btn").addEventListener("click", () => {
       state.scale = Math.max(0.32, state.scale * 0.86);
       applyTransform(true);
-    });
-
-    const btnAcoustic = document.getElementById("btn-acoustic-mode");
-    btnAcoustic.addEventListener("click", () => {
-      acousticFieldMode = !acousticFieldMode;
-      document.body.classList.toggle("acoustic-field-mode", acousticFieldMode);
-      btnAcoustic.classList.toggle("active", acousticFieldMode);
     });
 
     document.getElementById("btn-lang").addEventListener("click", () => {
