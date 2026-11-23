@@ -441,7 +441,14 @@
     document.getElementById("drawer-code").style.color = lm.badgeColor;
     document.getElementById("drawer-code").style.borderColor = lm.badgeColor;
     document.getElementById("drawer-title").textContent = info.topic;
-    document.getElementById("drawer-tagline").textContent = info.tagline;
+    const taglineEl = document.getElementById("drawer-tagline");
+    if (lm.category === "research") {
+      taglineEl.textContent = "";
+      taglineEl.style.display = "none";
+    } else {
+      taglineEl.textContent = info.tagline || "";
+      taglineEl.style.display = info.tagline ? "block" : "none";
+    }
 
     detailDrawer.classList.toggle("wide-drawer", lm.id === "publications-library");
 
@@ -473,14 +480,12 @@
         ? {
             slider: "超音波能量調控",
             principle: "🔬 科學原理與聲學機制",
-            params: "⚙️ 關鍵超音波參數",
             highlights: "🌟 實驗室研究亮點",
             pubs: "📄 本主題相關代表論文"
           }
         : {
             slider: "Ultrasound Intensity",
             principle: "🔬 Acoustic Mechanism & Principle",
-            params: "⚙️ Key Acoustic Parameters",
             highlights: "🌟 Research Highlights",
             pubs: "📄 Related Publications"
           };
@@ -502,22 +507,6 @@
       <div>
         <h3 class="section-heading">${labels.principle}</h3>
         <p class="summary-text">${info.summary}</p>
-      </div>
-
-      <div>
-        <h3 class="section-heading">${labels.params}</h3>
-        <div class="param-grid">
-          ${info.parameters
-            .map(
-              (p) => `
-            <div class="param-item">
-              <div class="param-label">${p.label}</div>
-              <div class="param-value">${p.value}</div>
-            </div>
-          `
-            )
-            .join("")}
-        </div>
       </div>
 
       <div>
@@ -573,7 +562,6 @@
               return `
                 <div class="info-card" style="cursor:pointer" data-jump="${z.id}">
                   <div class="info-card-title">${z.icon} ${zi.topic}</div>
-                  <div class="info-card-sub">${zi.tagline}</div>
                 </div>
               `;
             })
@@ -1710,18 +1698,8 @@
               <input id="ed-zone-zh-topic" class="editor-input" value="${escapeAttr(z.zh.topic)}" />
             </div>
             <div class="form-field">
-              <label>一句話核心標語 (Tagline)</label>
-              <input id="ed-zone-zh-tagline" class="editor-input" value="${escapeAttr(z.zh.tagline)}" />
-            </div>
-            <div class="form-field">
               <label>科學原理與聲學機制說明</label>
               <textarea id="ed-zone-zh-summary" class="editor-textarea">${escapeAttr(z.zh.summary)}</textarea>
-            </div>
-            <div class="form-field">
-              <label>關鍵超音波參數 (格式：參數名稱: 數值，每行一項)</label>
-              <textarea id="ed-zone-zh-params" class="editor-textarea">${escapeAttr(
-                z.zh.parameters.map((p) => `${p.label}: ${p.value}`).join("\n")
-              )}</textarea>
             </div>
             <div class="form-field">
               <label>研究亮點條列 (每行一項)</label>
@@ -1742,18 +1720,8 @@
               <input id="ed-zone-en-topic" class="editor-input" value="${escapeAttr(z.en.topic)}" />
             </div>
             <div class="form-field">
-              <label>Tagline</label>
-              <input id="ed-zone-en-tagline" class="editor-input" value="${escapeAttr(z.en.tagline)}" />
-            </div>
-            <div class="form-field">
               <label>Scientific Summary</label>
               <textarea id="ed-zone-en-summary" class="editor-textarea">${escapeAttr(z.en.summary)}</textarea>
-            </div>
-            <div class="form-field">
-              <label>Key Parameters (Format: Label: Value, one per line)</label>
-              <textarea id="ed-zone-en-params" class="editor-textarea">${escapeAttr(
-                z.en.parameters.map((p) => `${p.label}: ${p.value}`).join("\n")
-              )}</textarea>
             </div>
             <div class="form-field">
               <label>Research Highlights (One per line)</label>
@@ -2372,16 +2340,12 @@
 
       z.zh.name = zhName.value.trim();
       z.zh.topic = document.getElementById("ed-zone-zh-topic").value.trim();
-      z.zh.tagline = document.getElementById("ed-zone-zh-tagline").value.trim();
       z.zh.summary = document.getElementById("ed-zone-zh-summary").value.trim();
-      z.zh.parameters = parseParamLines(document.getElementById("ed-zone-zh-params").value);
       z.zh.highlights = splitLines(document.getElementById("ed-zone-zh-highlights").value);
 
       z.en.name = document.getElementById("ed-zone-en-name").value.trim();
       z.en.topic = document.getElementById("ed-zone-en-topic").value.trim();
-      z.en.tagline = document.getElementById("ed-zone-en-tagline").value.trim();
       z.en.summary = document.getElementById("ed-zone-en-summary").value.trim();
-      z.en.parameters = parseParamLines(document.getElementById("ed-zone-en-params").value);
       z.en.highlights = splitLines(document.getElementById("ed-zone-en-highlights").value);
     } else if (currentEditorTab === "team") {
       const piZhName = document.getElementById("ed-pi-zh-name");
