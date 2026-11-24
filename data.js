@@ -503,7 +503,7 @@ window.LAB_DATA = {
       {
         "icon": "💧",
         "name": "三軸精密水聽針聲場掃描水槽",
-        "spec": "針式/光纖水聽針 · 10 μm 步進空間解析度",
+        "spec": "針式水聽針 · 10 μm 步進空間解析度",
         "desc": "完整量測三維聲壓分佈、機械指數 (MI) 與非線性諧波頻譜。"
       },
       {
@@ -1974,8 +1974,8 @@ window.LAB_DATA = {
           "💼 合聘教師：國立成功大學 前瞻醫療器材科技中心 / 醫學院轉譯生物電子醫學研究中心",
           "💼 助理教授 (2020–2026)：國立成功大學 生物醫學工程學系",
           "💼 博士後研究員 (2013–2020)：國立清華大學 生醫工程與環境科學系",
-          "🎓 哲學博士 Ph.D. (2008–2013)：國立清華大學 生醫工程與環境科學系",
-          "🎓 理學學士 B.S. (2003–2007)：中山醫學大學 醫學影像暨放射科學系"
+          "🎓 博士  (2008–2013)：國立清華大學 生醫工程與環境科學系",
+          "🎓 學士 (2003–2007)：中山醫學大學 醫學影像暨放射科學系"
         ],
         "awards": [
           "🏆 2023 國際治療超音波學會青年學者大獎 (Frederic Lizzi Early Career Award, International Society for Therapeutic Ultrasound, ISTU)",
@@ -2099,10 +2099,10 @@ window.LAB_DATA = {
       "category": "conference",
       "tagZh": "國際研討會",
       "tagEn": "Conference",
-      "titleZh": "TSBME 2025 生物醫學工程科技研討會暨國科會醫工學門成果發表會 — 范景翔老師專題演講 (一)",
+      "titleZh": "TSBME 2025 生物醫學工程科技研討會暨國科會醫工學門成果發表會 — 范景翔老師邀請演講 (一)",
       "titleEn": "TSBME 2025 & NSTC BME Annual Symposium — Invited Talk by Prof. Fan (I)",
-      "descZh": "范景翔老師於 2025 生物醫學工程科技研討會發表聚焦超音波於不同生醫應用與波形參數調控之研究成果。",
-      "descEn": "Prof. Fan presenting our lab's focused ultrasound breakthroughs at the TSBME 2025 Annual Symposium.",
+      "descZh": "范景翔老師於 2025 生物醫學工程科技研討會發表漩渦式超音波於生醫應用之研究成果。",
+      "descEn": "Prof. Fan presenting our lab's vortex ultrasound breakthroughs at the TSBME 2025 Annual Symposium.",
       "image": "tsbme-2025-1.jpg"
     },
     {
@@ -2135,7 +2135,7 @@ window.LAB_DATA = {
       "category": "celebration",
       "tagZh": "畢業與慶生",
       "tagEn": "Celebration",
-      "titleZh": "成大醫工畢業撥穗典禮 — 實驗室團隊溫馨合照",
+      "titleZh": "2026成大醫工畢業撥穗典禮 — 實驗室團隊溫馨合照",
       "titleEn": "NCKU BME Graduation Ceremony — Lab Celebration (I)",
       "descZh": "恭喜實驗室碩博士畢業生順利完成學業、邁向人生新階段！",
       "descEn": "Congratulations to our graduates!",
@@ -2147,7 +2147,7 @@ window.LAB_DATA = {
       "category": "celebration",
       "tagZh": "畢業與慶生",
       "tagEn": "Celebration",
-      "titleZh": "成大醫工畢業撥穗典禮 — 范景翔老師與畢業生合影",
+      "titleZh": "2026成大醫工畢業撥穗典禮 — 范景翔老師與畢業生合影",
       "titleEn": "NCKU BME Graduation Ceremony — Prof. Fan & Graduate",
       "descZh": "",
       "descEn": "",
@@ -2183,7 +2183,7 @@ window.LAB_DATA = {
       "category": "outing",
       "tagZh": "聚餐與出遊",
       "tagEn": "Lab Outing",
-      "titleZh": "醫用超音波實驗室 — 歲末新春聚餐大合照",
+      "titleZh": "歲末新春聚餐大合照",
       "titleEn": "Therapeutic Ultrasound Lab — New Year Team Gathering",
       "descZh": "",
       "descEn": "",
@@ -2215,7 +2215,7 @@ window.LAB_DATA = {
     },
     {
       "id": "photo-10",
-      "date": "2025",
+      "date": "2026",
       "category": "outing",
       "tagZh": "聚餐與出遊",
       "tagEn": "Lab Outing",
@@ -2227,7 +2227,7 @@ window.LAB_DATA = {
     },
     {
       "id": "photo-11",
-      "date": "2025",
+      "date": "2026",
       "category": "outing",
       "tagZh": "聚餐與出遊",
       "tagEn": "Lab Outing",
@@ -2239,7 +2239,7 @@ window.LAB_DATA = {
     },
     {
       "id": "photo-12",
-      "date": "2025",
+      "date": "2026",
       "category": "outing",
       "tagZh": "聚餐與出遊",
       "tagEn": "Lab Outing",
@@ -2251,7 +2251,7 @@ window.LAB_DATA = {
     },
     {
       "id": "photo-13",
-      "date": "2025",
+      "date": "2026",
       "category": "outing",
       "tagZh": "聚餐與出遊",
       "tagEn": "Lab Outing",
